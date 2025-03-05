@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📦 Đơn hàng của bạn</title>
+    <style>
+      /* Định dạng chung */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f8f9fa;
+        text-align: center;
+      }
+
+      /* Tiêu đề */
+      h1 {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      /* Danh sách đơn hàng */
+      ul {
+        width: 80%;
+        margin: 0 auto;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Mỗi đơn hàng */
+      ul > li {
+        background: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: left;
+      }
+
+      /* ID đơn hàng */
+      ul > li strong {
+        color: #007bff;
+      }
+
+      /* Danh sách sản phẩm trong đơn */
+      ul ul {
+        margin-top: 10px;
+        padding-left: 20px;
+      }
+
+      /* Sản phẩm trong đơn */
+      ul ul li {
+        background: #f1f1f1;
+        padding: 8px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+      }
+
+      /* Nút quay lại */
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📦 Đơn hàng của bạn</h1>
+
+    <% if (orders.length > 0) { %>
+    <ul>
+      <% orders.forEach(order => { %>
+      <li>
+        <strong>Đơn hàng:</strong> <%= order._id %> -
+        <strong>Tổng tiền:</strong> <%= order.totalAmount %> VND -
+        <strong>Ngày đặt:</strong> <%= order.createdAt.toDateString() %>
+
+        <ul>
+          <% order.items.forEach(item => { %>
+          <li>
+            <%= item.name %> - <%= item.quantity %> x <%= item.price %> VND
+          </li>
+          <% }) %>
+        </ul>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p>❌ Bạn chưa có đơn hàng nào!</p>
+    <% } %>
+
+    <a href="/">⬅ Quay lại mua sắm</a>
+  </body>
+</html>

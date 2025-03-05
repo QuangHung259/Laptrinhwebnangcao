@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách sản phẩm</title>
+    <style>
+      /* Định dạng chung */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f8f9fa;
+        text-align: center;
+      }
+
+      /* Tiêu đề */
+      h1 {
+        color: #333;
+        font-size: 28px;
+      }
+
+      /* Danh sách sản phẩm */
+      .boxsanpham {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 0;
+      }
+
+      /* Đảm bảo ul không ảnh hưởng đến bố cục */
+      .boxsanpham ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 0;
+      }
+
+      /* Mỗi sản phẩm hiển thị theo hàng ngang */
+      .boxsanpham li {
+        width: calc(33.33% - 20px); /* 3 sản phẩm trên mỗi hàng */
+        max-width: 250px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        text-align: center;
+        list-style: none;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      /* Nếu màn hình nhỏ hơn 768px thì mỗi hàng có 2 sản phẩm */
+      @media (max-width: 768px) {
+        .boxsanpham li {
+          width: calc(50% - 20px); /* 2 sản phẩm mỗi hàng */
+        }
+      }
+
+      /* Nếu nhỏ hơn 480px thì mỗi hàng 1 sản phẩm */
+      @media (max-width: 480px) {
+        .boxsanpham li {
+          width: 100%; /* 1 sản phẩm mỗi hàng */
+        }
+      }
+
+      .boxsanpham li:hover {
+        transform: scale(1.05);
+      }
+
+      /* Ảnh sản phẩm */
+      .boxsanpham img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      /* Tên sản phẩm */
+      .boxsanpham strong {
+        display: block;
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      /* Giá sản phẩm */
+      .boxsanpham li span {
+        font-size: 16px;
+        color: #d9534f;
+        font-weight: bold;
+      }
+
+      /* Nút bấm */
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      /* Nút giỏ hàng */
+      a[href="/cart"] {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background: #28a745;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a[href="/cart"]:hover {
+        background: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🛍 Danh sách sản phẩm</h1>
+    <% if (products.length > 0) { %>
+    <div class="boxsanpham">
+      <ul>
+        <% products.forEach(product => { %>
+        <li
+          style="
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            list-style: none;
+          "
+        >
+          <img
+            src="<%= product.imageUrl %>"
+            alt="<%= product.name %>"
+            width="100"
+            style="display: block; margin-bottom: 10px"
+          />
+          <strong><%= product.name %></strong> - <%= product.price %> VND
+          <br />
+          <form
+            action="/cart/add/<%= product._id %>"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit">🛒 Thêm vào giỏ</button>
+          </form>
+          <a href="/product/<%= product._id %>">
+            <button>Xem chi tiết</button>
+          </a>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <% } else { %>
+    <p>Không có sản phẩm nào!</p>
+    <% } %>
+
+    <a href="/cart">🛒 Xem giỏ hàng</a>
+  </body>
+</html>

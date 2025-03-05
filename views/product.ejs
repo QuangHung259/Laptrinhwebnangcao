@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm</title>
+    <style>
+      /* Định dạng chung */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Chiều cao toàn màn hình */
+      }
+
+      /* Hộp chứa sản phẩm */
+      .product-container {
+        background: white;
+        width: 350px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      /* Tiêu đề */
+      .product-container h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 15px; /* Thêm khoảng cách */
+      }
+
+      /* Ảnh sản phẩm */
+      .product-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      /* Tên sản phẩm */
+      .product-container h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      /* Thông tin sản phẩm */
+      .product-container p {
+        font-size: 16px;
+        color: #555;
+        margin: 5px 0;
+      }
+
+      /* Nút thêm vào giỏ hàng */
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      /* Nút quay lại */
+      a {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 15px;
+        background: #28a745;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        background: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="product-container">
+      <h1>🔍 Chi tiết sản phẩm</h1>
+      <img src="<%= product.imageUrl %>" alt="<%= product.name %>" />
+      <h2><%= product.name %></h2>
+      <p><strong>Giá:</strong> <%= product.price %> VND</p>
+      <p><strong>Thương hiệu:</strong> <%= product.brand %></p>
+      <p><strong>Danh mục:</strong> <%= product.category %></p>
+      <p><strong>Mô tả:</strong> <%= product.description %></p>
+
+      <form action="/cart/add/<%= product._id %>" method="POST">
+        <button type="submit">🛒 Thêm vào giỏ hàng</button>
+      </form>
+
+      <br />
+      <a href="/">⬅ Quay lại danh sách sản phẩm</a>
+    </div>
+  </body>
+</html>

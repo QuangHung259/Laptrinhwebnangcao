@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🛒 Giỏ hàng của bạn</title>
+    <style>
+      /* Định dạng chung */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f8f9fa;
+        text-align: center;
+      }
+
+      /* Tiêu đề */
+      h1 {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      /* Bảng giỏ hàng */
+      table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      /* Tiêu đề cột */
+      th {
+        background: #007bff;
+        color: white;
+        padding: 12px;
+        text-align: center;
+      }
+
+      /* Hàng sản phẩm */
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+      }
+
+      /* Hàng chẵn có nền xám nhạt */
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      /* Nút xóa */
+      button {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #b02a37;
+      }
+
+      /* Nút thanh toán */
+      form[action="/cart/checkout"] button {
+        background: #28a745;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 15px;
+      }
+
+      form[action="/cart/checkout"] button:hover {
+        background: #218838;
+      }
+
+      /* Nút quay lại */
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        background: #0056b3;
+      }
+
+      /* Tổng tiền */
+      h3 {
+        color: #d9534f;
+        font-size: 22px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🛒 Giỏ hàng của bạn</h1>
+
+    <% if (cart.length > 0) { %>
+    <table border="1">
+      <tr>
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+        <th>Hành động</th>
+      </tr>
+
+      <% cart.forEach(item => { %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.price %> VND</td>
+        <td><%= item.quantity %></td>
+        <td><%= item.price * item.quantity %> VND</td>
+        <td>
+          <form action="/cart/remove/<%= item.productId %>" method="POST">
+            <button type="submit">❌ Xóa</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+
+    <h3>💰 Tổng tiền: <%= totalAmount %> VND</h3>
+
+    <form action="/cart/checkout" method="POST">
+      <button type="submit">✅ Thanh toán</button>
+    </form>
+    <% } else { %>
+    <p>🛒 Giỏ hàng trống.</p>
+    <% } %>
+
+    <a href="/">⬅ Quay lại mua sắm</a>
+  </body>
+</html>
